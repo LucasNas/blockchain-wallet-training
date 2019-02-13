@@ -24,7 +24,7 @@ export class BlockchainService {
 
   mine(): boolean{
     const lastestBlock= this.blockchain.getLatestBlock();
-    const previousHash= lastestBlock.previousHash;
+    const previousHash= lastestBlock.hash;
     const currentBlockData= new BlockData({
       transactions: this.blockchain.pendingTransactions,
       index: lastestBlock.index+1
