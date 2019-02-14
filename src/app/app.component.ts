@@ -9,19 +9,20 @@ import { BlockchainService, Blockchain, Transaction } from 'projects/blockchain/
 export class AppComponent {
   title = 'blockchain-wallet-training';
   public blockChain: Blockchain;
+  public isValid: boolean;
 
   constructor(@Inject(BlockchainService) private blockchainservice: BlockchainService){
     this.blockChain= this.blockchainservice.blockchain;
+    this.isValid= this.blockChain.isValidChain(this.blockChain);
   }
 
   onMine(): boolean{
     return this.blockchainservice.mine();
   }
 
-  onSend(){
-   const blockIndex= this.blockchainservice.addTransaction(
-      new Transaction(20,'eu','vc')
-    );
-    alert("Sua transacao deu boa no block" + blockIndex) 
+  onBalance(){
+    
   }
+
+  
 }

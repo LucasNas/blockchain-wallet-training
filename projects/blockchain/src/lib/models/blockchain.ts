@@ -79,7 +79,7 @@ export class Blockchain {
             const isSamePreviousHash= block.previousHash === this.chain[index].previousHash;
 
             return !isSameHash 
-            || isSamePreviousHash 
+            || !isSamePreviousHash 
             || (index > 0 && !this.validateBlock(block, testChain[index-1]));
         });
 
