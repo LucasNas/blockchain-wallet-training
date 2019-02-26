@@ -4,25 +4,42 @@
 <div class="row">
   <div class="col-md-3">
   <nav>
-    <button class="btn btn-primary" [routerLink]="['dashboard']">Dashboard</button><br>
-    <button class="btn btn-primary" [routerLink]="['send-transaction']">Send Transaction</button><br>
+
+    <div class="btn-group-vertical btn-group-lg" role="group" aria-label="Basic example">
+    <button class="btn btn-primary" [routerLink]="['dashboard']">Get Balance</button>
+    <button class="btn btn-primary" [routerLink]="['send-transaction']">Send Transaction</button>
     <button class="btn btn-primary" tooltip="Mine new block" (click)="onMine()">Mine</button>
+    </div>
 
   </nav>
 </div>
-  <div class="col-md-6">
-      <pre>
-          {{blockChain | json}}
-       </pre>
-
-
+  <div class="col-md-6" >
+      <div class="text-center" [ngClass]="{'valid':blockChain.pendingTransactions.length>0, 'invalid':blockChain.pendingTransactions.length===0}">
+        {{blockChain.pendingTransactions.length}} Pending Transactions
+      </div>
+      <h2 class="text-center">Blockchain History</h2>
+      <div class="row">
+          <div class="col-md-4">
+          <b>Index</b>
+          </div>
+          <div class="col-md-4">
+          <b>Hash</b>
+          </div>
+          <div class="col-md-4">
+          <b>Nonce</b>
+          </div>
+        </div>
+         <div *ngFor="let block of blockChain.chain">
+            <app-block [block]="block"></app-block>
+          </div>
   </div>
   <div class="col-md-3">
-  {{blockChain.pendingTransactions.length}} Pending Transactions
+
   <main>
       <router-outlet></router-outlet>
   </main>
   </div>
 </div>
+
 
 

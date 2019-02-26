@@ -9,7 +9,7 @@ import { AlertComponent } from 'ngx-bootstrap/alert/alert.component';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'blockchain-wallet-training';
+  title = 'Blockchain Wallet Training';
   public blockChain: Blockchain;
   public isValid: boolean;
 
