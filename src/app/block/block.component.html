@@ -1,13 +1,18 @@
 <div class="row">
-  <div class="col-md-4">
-  {{block.index}}
+  <div class="col-md-3">
+      {{block.index}}
   </div>
-  <div class="col-md-4">
+  <div class="col-md-3">
   {{block.hash.substring(0,3)}}
   </div>
-  <div class="col-md-4">
+  <div class="col-md-3">
   {{block.nonce}}
-</div>
+  </div>
+  <div class="col-md-3">
+    <div class="text-center">
+      {{block.transactions.length}}
+    </div>
+  </div>
 </div>
 
 
