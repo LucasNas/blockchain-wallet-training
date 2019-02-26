@@ -1,19 +1,28 @@
 <header>
-    <h2 [ngClass]="{'valid':isValid, 'invalid':!isValid}">BlockChain
-    </h2>
-
-    <div>
-      {{blockChain.pendingTransactions.length}} Pending Transactions
-    </div>
-    <nav>
-        <button class="btn btn-primary" [routerLink]="['send-transaction']">Send Transaction</button>
-        <button class="btn btn-primary" [routerLink]="['dashboard']">Dashboard</button>
-        <button class="btn btn-primary" tooltip="Mine new block" (click)="onMine()">Mine</button>
-    </nav>
+    <h2 class="text-center" [ngClass]="{'valid':isValid, 'invalid':!isValid}">{{title}}</h2>
 </header>
-<main>
-    <router-outlet></router-outlet>
-</main>
- <pre>
-    {{blockChain | json}}
- </pre>
+<div class="row">
+  <div class="col-md-3">
+  <nav>
+    <button class="btn btn-primary" [routerLink]="['dashboard']">Dashboard</button><br>
+    <button class="btn btn-primary" [routerLink]="['send-transaction']">Send Transaction</button><br>
+    <button class="btn btn-primary" tooltip="Mine new block" (click)="onMine()">Mine</button>
+
+  </nav>
+</div>
+  <div class="col-md-6">
+      <pre>
+          {{blockChain | json}}
+       </pre>
+
+
+  </div>
+  <div class="col-md-3">
+  {{blockChain.pendingTransactions.length}} Pending Transactions
+  <main>
+      <router-outlet></router-outlet>
+  </main>
+  </div>
+</div>
+
+

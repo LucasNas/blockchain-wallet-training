@@ -10,11 +10,11 @@ export class Transaction {
          amount: number,
          sender: string,
          recipient: string
-    ){
-        this.id= uuid();
-        this.amount= amount;
-        this.sender= sender;
-        this.recipient= recipient;
+    ) {
+        this.id = uuid();
+        this.amount = amount;
+        this.sender = sender;
+        this.recipient = recipient;
     }
 
 }

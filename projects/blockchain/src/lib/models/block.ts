@@ -5,7 +5,7 @@ export class Block {
     public timestamp: number;
     public transactions: Transaction[];
     public nonce: string;
-    public hash: string
+    public hash: string;
     public previousHash: string;
 
     constructor(
@@ -15,12 +15,12 @@ export class Block {
         nonce: string,
         hash: string,
         previousHash: string
-    ){
-        this.index= index;
-        this.timestamp= timestamp;
-        this.transactions= transactions;
-        this.nonce= nonce;
-        this.hash= hash;
-        this.previousHash= previousHash;
+    ) {
+        this.index = index;
+        this.timestamp = timestamp;
+        this.transactions = transactions;
+        this.nonce = nonce;
+        this.hash = hash;
+        this.previousHash = previousHash;
     }
 }

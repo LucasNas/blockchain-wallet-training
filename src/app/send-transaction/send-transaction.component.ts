@@ -9,14 +9,14 @@ import { BlockchainService, Transaction } from 'projects/blockchain/src/public_a
 export class SendTransactionComponent implements OnInit {
 
   constructor(@Inject(BlockchainService) private blockchainservice: BlockchainService) {}
-   
+
 
   ngOnInit() {
   }
 
-  onSend(amount: number, recipient: string){
-    const id= this.blockchainservice.blockchain.nodeUrl;
-    const transaction= new Transaction(
+  onSend(amount: number, recipient: string) {
+    const id = this.blockchainservice.blockchain.nodeUrl;
+    const transaction = new Transaction(
       amount,
       id,
       recipient

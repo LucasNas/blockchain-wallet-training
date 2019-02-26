@@ -2,7 +2,7 @@ import { Block } from './block';
 import { Transaction } from './transaction';
 import { v4 as uuid } from 'uuid';
 import { BlockData } from './block-data';
-import { sha256 } from  'hash.js';
+import { sha256 } from 'hash.js';
 
 
 export class Blockchain {
@@ -12,15 +12,15 @@ export class Blockchain {
     public networkNodes: string[] = [];
     private difficulty: number;
 
-    constructor(GENESIS_BLOCK: Block, difficulty = 2){
+    constructor(GENESIS_BLOCK: Block, difficulty = 2) {
         this.chain = [GENESIS_BLOCK];
         this.nodeUrl = uuid();
-        this.difficulty=difficulty;
+        this.difficulty = difficulty;
     }
 
-    newBlock(nonce:string | number, previousHash: string, hash: string): Block{
-        const newBlock= new Block(
-            this.chain.length +1,
+    newBlock(nonce: string | number, previousHash: string, hash: string): Block {
+        const newBlock = new Block(
+            this.chain.length + 1,
             Date.now(),
             this.pendingTransactions,
             nonce.toString(),
@@ -28,75 +28,75 @@ export class Blockchain {
             previousHash
         );
 
-        this.pendingTransactions= [];
+        this.pendingTransactions = [];
         this.chain.push(newBlock);
-        return newBlock
+        return newBlock;
     }
 
-    getLatestBlock():Block{
-        return this.chain[this.chain.length-1];
+    getLatestBlock(): Block {
+        return this.chain[this.chain.length - 1];
     }
 
-    hashBlock(previousHash: string, blockData: BlockData, nonce: string | number): string{
+    hashBlock(previousHash: string, blockData: BlockData, nonce: string | number): string {
         const data = previousHash
         + JSON.stringify(blockData)
         + nonce.toString();
 
-        const hash= sha256().update(data).digest('hex');
+        const hash = sha256().update(data).digest('hex');
         return hash;
     }
 
-    proofOfWorkNonce(previousHash: string, currentBlockData:BlockData): string{
-        let nonce= 0;
-        let hash= this.hashBlock(previousHash,currentBlockData,nonce);
+    proofOfWorkNonce(previousHash: string, currentBlockData: BlockData): string {
+        let nonce = 0;
+        let hash = this.hashBlock(previousHash, currentBlockData, nonce);
 
-        while(hash.substr(0,this.difficulty) !== this.chain[0].hash.substr(0,this.difficulty)){
+        while (hash.substr(0, this.difficulty) !== this.chain[0].hash.substr(0, this.difficulty)) {
             nonce++;
-            hash = this.hashBlock(previousHash,currentBlockData,nonce);
+            hash = this.hashBlock(previousHash, currentBlockData, nonce);
         }
 
         return nonce.toString();
     }
 
-    validateBlock(block: Block, previousBlock: Block): boolean{
-        if(block.previousHash !== previousBlock.hash){
+    validateBlock(block: Block, previousBlock: Block): boolean {
+        if (block.previousHash !== previousBlock.hash) {
             return false;
         }
 
-        const validhash= this.hashBlock(block.previousHash,new BlockData(block),block.nonce);
+        const validhash = this.hashBlock(block.previousHash, new BlockData(block), block.nonce);
 
-        if(validhash !== block.hash){
+        if (validhash !== block.hash) {
             return false;
         }
 
-        return block.hash.substr(0,this.difficulty) === this.chain[0].hash.substr(0,this.difficulty);
+        return block.hash.substr(0, this.difficulty) === this.chain[0].hash.substr(0, this.difficulty);
     }
 
-    isValidChain(Blockchain: Blockchain): boolean{
-        const testChain= Blockchain.chain;
-        const invalidBlocks= testChain.filter((block,index)=>{
-            const isSameHash= block.hash === this.chain[index].hash;
-            const isSamePreviousHash= block.previousHash === this.chain[index].previousHash;
+    isValidChain(blockchain: Blockchain): boolean {
+        const testChain = blockchain.chain;
+        const invalidBlocks = testChain.filter((block, index) => {
+            const isSameHash = block.hash === this.chain[index].hash;
+            const isSamePreviousHash = block.previousHash === this.chain[index].previousHash;
 
-            return !isSameHash 
-            || !isSamePreviousHash 
-            || (index > 0 && !this.validateBlock(block, testChain[index-1]));
+            return !isSameHash
+            || !isSamePreviousHash
+            || (index > 0 && !this.validateBlock(block, testChain[index - 1]));
         });
 
         return invalidBlocks.length === 0 ;
     }
 
-    addTransactionToPending(transaction: Transaction): number{
+    addTransactionToPending(transaction: Transaction): number {
         this.pendingTransactions.push(transaction);
 
-        return this.getLatestBlock().index+1;
+        return this.getLatestBlock().index + 1;
     }
 
-    newTransaction(amount: number, sender: string, recipient: string): Transaction{
-        const transaction= new Transaction(
-            amount,sender,recipient
+    newTransaction(amount: number, sender: string, recipient: string): Transaction {
+        const transaction = new Transaction(
+            amount, sender, recipient
         );
-        
+
         return transaction;
     }
 

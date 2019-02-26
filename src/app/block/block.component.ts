@@ -10,7 +10,6 @@ export class BlockComponent implements OnInit {
   @Input()  block: Block;
 
   constructor() { }
-   
 
   ngOnInit() {
   }

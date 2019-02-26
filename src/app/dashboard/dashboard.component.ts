@@ -8,11 +8,11 @@ import { BlockchainService, Blockchain } from 'projects/blockchain/src/public_ap
 })
 export class DashboardComponent implements OnInit {
   public blockchain: Blockchain;
-  
+
   constructor(@Inject(BlockchainService) private blockchainservice: BlockchainService) { }
 
   ngOnInit() {
-    this.blockchain= this.blockchainservice.blockchain;
+    this.blockchain = this.blockchainservice.blockchain;
   }
 
 }
